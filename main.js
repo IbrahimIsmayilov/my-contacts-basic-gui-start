@@ -94,22 +94,21 @@ function displayByCountry() {
   outputEl.innerHTML = divStr;
 }
 
-function findByEmail() {
-  let searchEmail = prompt("Enter an email to find contact: ");
-  let index = findByEmail(searchEmail);
-  if (index === -1) {
-    alert("no email found")
-  } else {
-    divStr += `
-   <div style='border: 1px solid grey'>
-   <h1> ${contactsArray[i].contactName} </h1>
-   <p> ${contactsArray[i].contactEmail} </p>
-   <p> ${contactsArray[i].contactNumber} (${contactsArray[i].contactCountry})</p>
-   </div>
-   `
+function findByEmail(emailInput) {
+  for (let i = 0; i < contactsArray.length; i++) {
+    if (emailInput === contactsArray[i].contactEmail) {
+      divStr += `
+      <div style='border: 1px solid grey'>
+      <h1> ${contactsArray[i].contactName} </h1>
+      <p> ${contactsArray[i].contactEmail} </p>
+      <p> ${contactsArray[i].contactNumber} (${contactsArray[i].contactCountry})</p>
+      </div>
+      `
+     } else {
+     }
+    }
   }
-  outputEl.innerHTML = divStr;
-}
+
 
 //Helper Functions
 function newContact(contactDescription, contactEmails, contactNumbers, contactCountries) {
@@ -125,7 +124,7 @@ function newContact(contactDescription, contactEmails, contactNumbers, contactCo
 function getContactHTMLStr(inputInfo, i) {
   return `
    <div>
-   <h2>${i}: ${inputInfo.contactName} </h2>
+   <h2> ${i}: ${inputInfo.contactName} </h2>
    <p>${inputInfo.contactEmail}</p>
    <p>${inputInfo.contactNumber} (${inputInfo.contactCountry})
    </div>
@@ -148,3 +147,4 @@ function loadcontactsArray() {
   let contactsArrayStr = localStorage.getItem('contactsArray');
   return JSON.parse(contactsArrayStr) ?? [];
 }
+
