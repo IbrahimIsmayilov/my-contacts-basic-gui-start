@@ -24,32 +24,41 @@ function goBtnHandler() {
     displayByName();
   } else if (selection === 'display-country') {
     displayByCountry();
-  } else if (selection === 'SearchByEmail') {
-    findByEmail();
+  } else if (selection === 'searchByEmail') {
+    let inputEmail2 = prompt("Enter an email");
+    let index = findByEmail(inputEmail2);
+    if (index === -1) {
+      console.log("Contact with that email could not be found");
+    } else {
+      divStr += `
+      <div style='border: 1px solid grey'>
+      <h1> ${contactsArray[i].contactName} </h1>
+      <p> ${contactsArray[i].contactEmail} </p>
+      <p> ${contactsArray[i].contactNumber} (${contactsArray[i].contactCountry})</p>
+      </div>
+      `
+    }
   }
 }
 
 // MENU FUNCTIONS
-function displaycontactsArray() {
-  displayAll();
-}
 
 function addContact() {
   let contactEmail = prompt("Enter New Contact Email:");
   let index = findByEmail(contactEmail);
-  if (index !== -1) {
-  let contactName = prompt("Enter New Contact Name:");
-  let contactNumber = prompt("Enter New Contact Number:");
-  let contactCountry = prompt("Enter New Contact Country");
-  contactsArray.push(newContact(contactName, contactEmail, contactNumber, contactCountry));
-  outputEl.innerHTML = `Task Added: ${contactName}`;
-  alert("New Contact has been added");
-  console.log("Contact with that email could not be found");
-  displayAll();
-  saveContact();
+  if (index === -1) {
+    let contactName = prompt("Enter New Contact Name:");
+    let contactNumber = prompt("Enter New Contact Number:");
+    let contactCountry = prompt("Enter New Contact Country");
+    contactsArray.push(newContact(contactName, contactEmail, contactNumber, contactCountry));
+    outputEl.innerHTML = `Task Added: ${contactName}`;
+    alert("New Contact has been added");
+    console.log("Contact with that email could not be found");
+    displayAll();
+    saveContact();
   } else {
     alert(`Contact with that email was found at position ${index}`);
-  } 
+  }
 }
 
 function removeContact() {
@@ -101,22 +110,11 @@ function displayByCountry() {
 function findByEmail(emailInput) {
   for (let i = 0; i < contactsArray.length; i++) {
     if (emailInput === contactsArray[i].contactEmail) {
-      if (selection === 'SearchByEmail') {
-        divStr += `
-        <div style='border: 1px solid grey'>
-        <h1> ${contactsArray[i].contactName} </h1>
-        <p> ${contactsArray[i].contactEmail} </p>
-        <p> ${contactsArray[i].contactNumber} (${contacts[i].contactCountry})</p>
-        </div>
-        `
-      } else {
-        return i;
-
-      }
-     } 
+      return i;
+    }
   }
   return -1;
-  }
+}
 
 
 //Helper Functions
