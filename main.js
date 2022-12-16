@@ -101,7 +101,18 @@ function displayByCountry() {
 function findByEmail(emailInput) {
   for (let i = 0; i < contactsArray.length; i++) {
     if (emailInput === contactsArray[i].contactEmail) {
-      return i;
+      if (selection === 'SearchByEmail') {
+        divStr += `
+        <div style='border: 1px solid grey'>
+        <h1> ${contactsArray[i].contactName} </h1>
+        <p> ${contactsArray[i].contactEmail} </p>
+        <p> ${contactsArray[i].contactNumber} (${contacts[i].contactCountry})</p>
+        </div>
+        `
+      } else {
+        return i;
+
+      }
      } 
   }
   return -1;
