@@ -15,7 +15,7 @@ function goBtnHandler() {
   let selection = menuEl.value;
 
   if (selection === 'display-all') {
-    displaycontactsArray();
+    displayAll();
   } else if (selection === 'add') {
     addContact();
   } else if (selection === 'remove') {
@@ -25,21 +25,24 @@ function goBtnHandler() {
   } else if (selection === 'display-country') {
     displayByCountry();
   } else if (selection === 'searchByEmail') {
-    let inputEmail2 = prompt("Enter an email");
-    let index = findByEmail(inputEmail2);
+    let inputEmail = prompt("Enter an email");
+    let index = findByEmail(inputEmail);
     if (index === -1) {
       console.log("Contact with that email could not be found");
     } else {
-      divStr += `
+      let divStr = '';
+        divStr += `
       <div style='border: 1px solid grey'>
-      <h1> ${contactsArray[i].contactName} </h1>
-      <p> ${contactsArray[i].contactEmail} </p>
-      <p> ${contactsArray[i].contactNumber} (${contactsArray[i].contactCountry})</p>
+      <h1> ${contactsArray[index].contactName} </h1>
+      <p> ${contactsArray[index].contactEmail} </p>
+      <p> ${contactsArray[index].contactNumber} (${contactsArray[index].contactCountry})</p>
       </div>
       `
+      outputEl.innerHTML = divStr;
+    }
     }
   }
-}
+
 
 // MENU FUNCTIONS
 
